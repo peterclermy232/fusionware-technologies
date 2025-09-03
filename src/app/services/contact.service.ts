@@ -43,8 +43,8 @@ export class ContactService {
       return this.simulateApiCall(formData);
     }
 
-    return this.http.post<ContactResponse>(`${this.apiUrl}/contact`, formData, { 
-      headers: this.headers 
+    return this.http.post<ContactResponse>(`${this.apiUrl}/contact`, formData, {
+      headers: this.headers
     }).pipe(
       tap(response => {
         if (response.success) {
@@ -106,9 +106,9 @@ export class ContactService {
 
   private handleError(error: any): Observable<ContactResponse> {
     console.error('Contact service error:', error);
-    
+
     let errorMessage = 'An unexpected error occurred. Please try again.';
-    
+
     if (error.status === 0) {
       errorMessage = 'Unable to connect to server. Please check your internet connection.';
     } else if (error.status >= 400 && error.status < 500) {
@@ -124,7 +124,8 @@ export class ContactService {
   }
 
   private isDevMode(): boolean {
-    return !environment.production;
+    // Simple check for development mode - you might want to use environment variables
+    return location.hostname === 'localhost';
   }
 
   private generateId(): string {
@@ -145,7 +146,7 @@ export class ContactService {
   formatPhoneNumber(phone: string): string {
     // Remove all non-digits
     const cleaned = phone.replace(/\D/g, '');
-    
+
     // Format based on length (assuming Kenyan numbers)
     if (cleaned.length === 10 && cleaned.startsWith('0')) {
       return `+254${cleaned.substring(1)}`;
@@ -154,12 +155,7 @@ export class ContactService {
     } else if (cleaned.length === 12 && cleaned.startsWith('254')) {
       return `+${cleaned}`;
     }
-    
+
     return phone; // Return original if can't format
   }
 }
-
-// Environment interface (you may need to create this)
-declare const environment: {
-  production: boolean;
-};

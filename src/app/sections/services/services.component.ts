@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 export interface Service {
   title: string;
@@ -8,6 +9,8 @@ export interface Service {
 
 @Component({
   selector: 'app-services',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css']
 })
