@@ -1,0 +1,12 @@
+.testimonial-card {
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+    }
+
+    .testimonial-card:hover {
+      background: linear-gradient(145deg, #f8fafc, #ffffff);
+    }
+
+    /* Pause animation on hover */
+    .testimonials-container:hover .testimonial-slide {
+      animation-play-state: paused;
+    }

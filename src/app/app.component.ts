@@ -10,6 +10,9 @@ import { PortfolioComponent } from './sections/portfolio/portfolio.component';
 import { AboutComponent } from './sections/about/about.component';
 import { ContactComponent } from './sections/contact/contact.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { TestimonialComponent } from './sections/testimonial/testimonial.component';
+import { InteractivePricingCalculatorComponent } from './sections/interactive-pricing-calculator/interactive-pricing-calculator.component';
+
 
 @Component({
   selector: 'app-root',
@@ -23,7 +26,9 @@ import { FooterComponent } from './shared/footer/footer.component';
     PortfolioComponent,
     AboutComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    TestimonialComponent,
+    InteractivePricingCalculatorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

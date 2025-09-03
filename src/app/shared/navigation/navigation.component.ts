@@ -1,10 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,LogoComponent],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
@@ -17,7 +18,9 @@ export class NavigationComponent implements OnInit {
     { label: 'About', href: '#about' },
     { label: 'Services', href: '#services' },
     { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Contact', href: '#contact' },
+    { label: 'Testimonial', href: '#testimonial' },
+    { label: 'Pricing', href: '#pricing-calculator' }
   ];
 
   ngOnInit() {}

@@ -1,0 +1,181 @@
+<section id="pricing-calculator" class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4 font-poppins">
+            💰 Transparent Pricing Calculator
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            No hidden costs, no surprises. Calculate your project cost instantly and see exactly what you're paying for.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- Configuration Panel -->
+            <div class="space-y-8">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6">Configure Your Project</h3>
+
+              <!-- Project Type Selection -->
+              <div>
+                <label class="block text-lg font-semibold text-gray-700 mb-4">
+                  1. Choose Your Project Type
+                </label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div *ngFor="let option of pricingOptions"
+                       class="relative cursor-pointer"
+                       (click)="selectOption(option)">
+                    <div [class]="'p-4 rounded-xl border-2 transition-all duration-300 ' +
+                         (selectedOption?.id === option.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300')">
+                      <h4 class="font-bold text-gray-800 mb-2">{{option.name}}</h4>
+                      <p class="text-sm text-gray-600 mb-2">{{option.description}}</p>
+                      <div class="text-lg font-bold text-blue-600">
+                        From ${{option.basePrice | number:'1.0-0'}}
+                      </div>
+                    </div>
+                    <div *ngIf="selectedOption?.id === option.id"
+                         class="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timeline Selection -->
+              <div *ngIf="selectedOption">
+                <label class="block text-lg font-semibold text-gray-700 mb-4">
+                  2. Choose Timeline (affects pricing)
+                </label>
+                <div class="grid grid-cols-3 gap-4">
+                  <div *ngFor="let timeline of timelines"
+                       class="text-center cursor-pointer"
+                       (click)="selectedTimeline = timeline">
+                    <div [class]="'p-4 rounded-lg border-2 transition-all ' +
+                         (selectedTimeline.id === timeline.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300')">
+                      <div class="text-2xl mb-2">{{timeline.icon}}</div>
+                      <div class="font-bold text-gray-800">{{timeline.name}}</div>
+                      <div class="text-sm text-gray-600 mb-2">{{timeline.duration}}</div>
+                      <div [class]="'text-sm font-semibold ' +
+                           (timeline.multiplier > 1 ? 'text-red-600' : timeline.multiplier < 1 ? 'text-green-600' : 'text-gray-600')">
+                        {{timeline.multiplier > 1 ? '+' : ''}}{{((timeline.multiplier - 1) * 100) | number:'1.0-0'}}%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add-ons Selection -->
+              <div *ngIf="selectedOption">
+                <label class="block text-lg font-semibold text-gray-700 mb-4">
+                  3. Choose Add-ons (Optional)
+                </label>
+                <div class="space-y-3 max-h-64 overflow-y-auto">
+                  <div *ngFor="let addon of addOns"
+                       class="flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50 cursor-pointer"
+                       (click)="toggleAddon(addon)">
+                    <div class="flex items-center">
+                      <input type="checkbox"
+                             [checked]="selectedAddOns.includes(addon.id)"
+                             class="mr-3 w-4 h-4 text-blue-600"
+                             (change)="toggleAddon(addon)">
+                      <div>
+                        <div class="font-semibold text-gray-800">{{addon.name}}</div>
+                        <div class="text-sm text-gray-600">{{addon.description}}</div>
+                      </div>
+                    </div>
+                    <div class="font-bold text-blue-600">
+                      +${{addon.price | number:'1.0-0'}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="lg:sticky lg:top-8">
+              <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 text-white">
+                <h3 class="text-2xl font-bold mb-6">💡 Your Project Estimate</h3>
+
+                <div *ngIf="selectedOption" class="space-y-4">
+                  <!-- Base Price -->
+                  <div class="flex justify-between items-center pb-2 border-b border-blue-400">
+                    <span class="text-blue-100">{{selectedOption.name}}</span>
+                    <span class="font-bold">${{selectedOption.basePrice | number:'1.0-0'}}</span>
+                  </div>
+
+                  <!-- Timeline Adjustment -->
+                  <div *ngIf="selectedTimeline.multiplier !== 1" class="flex justify-between items-center text-sm">
+                    <span class="text-blue-200">{{selectedTimeline.name}} {{selectedTimeline.multiplier > 1 ? 'Rush' : 'Standard'}} Fee</span>
+                    <span [class]="selectedTimeline.multiplier > 1 ? 'text-red-200' : 'text-green-200'">
+                      {{selectedTimeline.multiplier > 1 ? '+' : ''}}${{(selectedOption.basePrice * (selectedTimeline.multiplier - 1)) | number:'1.0-0'}}
+                    </span>
+                  </div>
+
+                  <!-- Add-ons -->
+                  <div *ngFor="let addonId of selectedAddOns" class="flex justify-between items-center text-sm">
+                    <span class="text-blue-200">{{getAddonById(addonId)?.name}}</span>
+                    <span class="text-blue-100">+${{getAddonById(addonId)?.price | number:'1.0-0'}}</span>
+                  </div>
+
+                  <!-- Total -->
+                  <div class="border-t border-blue-400 pt-4 mt-4">
+                    <div class="flex justify-between items-center text-xl font-bold">
+                      <span>Total Estimate:</span>
+                      <span class="text-amber-300">${{getTotalPrice() | number:'1.0-0'}}</span>
+                    </div>
+                    <div class="text-sm text-blue-200 mt-2">
+                      Estimated timeline: {{selectedTimeline.duration}}
+                    </div>
+                  </div>
+
+                  <!-- What's Included -->
+                  <div class="mt-6 p-4 bg-blue-700 rounded-lg">
+                    <h4 class="font-bold text-amber-300 mb-2">✅ What's Included:</h4>
+                    <ul class="space-y-1 text-sm text-blue-100">
+                      <li *ngFor="let feature of selectedOption.features" class="flex items-center">
+                        <svg class="w-3 h-3 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        {{feature}}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Call to Action -->
+                  <div class="space-y-3 mt-6">
+                    <button class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
+                      🚀 Get This Quote Now
+                    </button>
+                    <button class="w-full border-2 border-white text-white hover:bg-white hover:text-blue-800 font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                      📞 Schedule Free Consultation
+                    </button>
+                  </div>
+
+                  <!-- Guarantee -->
+                  <div class="text-center text-xs text-blue-200 mt-4 p-3 bg-blue-700 rounded">
+                    🛡️ 30-day money-back guarantee • Fixed price promise • No hidden fees
+                  </div>
+                </div>
+
+                <div *ngIf="!selectedOption" class="text-center text-blue-200">
+                  👆 Select a project type above to see pricing
+                </div>
+              </div>
+
+              <!-- Comparison Note -->
+              <div class="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                <div class="text-center">
+                  <div class="text-amber-800 font-semibold mb-2">💡 Why We're Different</div>
+                  <div class="text-sm text-amber-700">
+                    Other companies: Hidden costs, changing prices<br>
+                    <strong>FusionWare:</strong> What you see is what you pay - guaranteed!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,37 @@
+ <div class="logo-container cursor-pointer" (click)="animateLogo()">
+      <div class="logo-wrapper" [class.animate]="isAnimating">
+        <!-- Fusion symbol with rotating elements -->
+        <svg viewBox="0 0 60 60" class="w-12 h-12 logo-svg">
+          <!-- Outer ring -->
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#3B82F6" stroke-width="2"
+                  class="outer-ring" [class.spin]="isAnimating"/>
+
+          <!-- Inner hexagon representing fusion/integration -->
+          <path d="M30 8 L45 18 L45 38 L30 48 L15 38 L15 18 Z"
+                fill="none" stroke="#F59E0B" stroke-width="2"
+                class="hexagon" [class.pulse]="isAnimating"/>
+
+          <!-- Center fusion core -->
+          <circle cx="30" cy="30" r="8" fill="#3B82F6" class="fusion-core"/>
+          <circle cx="30" cy="30" r="4" fill="#F59E0B" class="inner-core"/>
+
+          <!-- Dynamic connection lines -->
+          <g class="connection-lines" [class.active]="isAnimating">
+            <line x1="30" y1="12" x2="30" y2="22" stroke="#60A5FA" stroke-width="2"/>
+            <line x1="30" y1="38" x2="30" y2="48" stroke="#60A5FA" stroke-width="2"/>
+            <line x1="15" y1="20" x2="22" y2="26" stroke="#60A5FA" stroke-width="2"/>
+            <line x1="38" y1="34" x2="45" y2="40" stroke="#60A5FA" stroke-width="2"/>
+          </g>
+
+          <!-- Tech elements -->
+          <rect x="26" y="26" width="8" height="8" fill="none" stroke="#FFF" stroke-width="1"
+                class="tech-square" [class.rotate]="isAnimating"/>
+        </svg>
+
+        <!-- Company name with gradient -->
+        <div class="logo-text">
+          <span class="fusion-text">Fusion</span><span class="ware-text">Ware Tech Solutions</span>
+          <!-- <div class="tagline">Tech Solutions</div> -->
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,103 @@
+.logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-svg {
+      filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.2));
+    }
+
+    .outer-ring {
+      animation: rotation 20s linear infinite;
+      transform-origin: center;
+    }
+
+    .outer-ring.spin {
+      animation: rotation 2s linear infinite;
+    }
+
+    .hexagon.pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .fusion-core {
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    .connection-lines.active line {
+      animation: electricity 1s ease-in-out infinite;
+      stroke-dasharray: 5, 5;
+      stroke-dashoffset: 10;
+    }
+
+    .tech-square.rotate {
+      animation: rotation 4s linear infinite;
+      transform-origin: center;
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .fusion-text {
+      color: #3B82F6;
+      font-size: 1.5rem;
+      text-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+    }
+
+    .ware-text {
+      color: #F59E0B;
+      font-size: 1.5rem;
+      text-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+    }
+
+    .tagline {
+      font-size: 0.75rem;
+      color: #6B7280;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: -0.25rem;
+    }
+
+    @keyframes rotation {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    @keyframes glow {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.3) drop-shadow(0 0 8px #3B82F6); }
+    }
+
+    @keyframes electricity {
+      0% { stroke-dashoffset: 10; opacity: 1; }
+      50% { stroke-dashoffset: 0; opacity: 0.5; }
+      100% { stroke-dashoffset: -10; opacity: 1; }
+    }
+
+    .logo-wrapper.animate .outer-ring,
+    .logo-wrapper.animate .hexagon,
+    .logo-wrapper.animate .connection-lines,
+    .logo-wrapper.animate .tech-square {
+      animation-duration: 0.5s !important;
+    }
+
+    @media (max-width: 768px) {
+      .logo-svg { width: 2.5rem; height: 2.5rem; }
+      .fusion-text, .ware-text { font-size: 1.25rem; }
+      .tagline { font-size: 0.6rem; }
+    }
