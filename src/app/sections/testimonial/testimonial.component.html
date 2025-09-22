@@ -33,7 +33,8 @@
                   <!-- Header -->
                   <div class="flex items-center mb-4">
                     <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
-                      {{testimonial.name.charAt(0)}}{{testimonial.name.split(' ')[1]?.charAt(0) || ''}}
+                      {{ testimonial.name.charAt(0) }}
+                     {{ testimonial.name.split(' ').length > 1 ? testimonial.name.split(' ')[1].charAt(0) : '' }}
                     </div>
                     <div class="ml-3">
                       <h4 class="font-bold text-gray-800">{{testimonial.name}}</h4>

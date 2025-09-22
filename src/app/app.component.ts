@@ -18,17 +18,17 @@ import { InteractivePricingCalculatorComponent } from './sections/interactive-pr
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
-    NavigationComponent,
-    HeroComponent,
-    ServicesComponent,
-    PortfolioComponent,
-    AboutComponent,
-    ContactComponent,
-    FooterComponent,
-    TestimonialComponent,
-    InteractivePricingCalculatorComponent
+    RouterOutlet,
+     NavigationComponent,
+    // HeroComponent,
+    // ServicesComponent,
+    // PortfolioComponent,
+    // AboutComponent,
+    // ContactComponent,
+     FooterComponent,
+    // TestimonialComponent,
+    // InteractivePricingCalculatorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
