@@ -2,12 +2,12 @@
   "name": "fusionware-technologies",
   "version": "0.0.0",
   "scripts": {
-    "ng": "npx ng",
-    "start": "npm run build && npx http-server dist/fusionware-technologies -p 10000",
-    "build": "npx ng build --configuration production",
-    "watch": "npx ng build --watch --configuration development",
-    "test": "npx ng test"
-  },
+  "ng": "npx ng",
+  "start": "npm run build && npx http-server dist/fusionware-technologies/browser -p $PORT",
+  "build": "npx ng build --configuration production",
+  "watch": "npx ng build --watch --configuration development",
+  "test": "npx ng test"
+},
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.14",
