@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
   "ng": "npx ng",
-  "start": "npm run build && npx http-server dist/fusionware-technologies/browser -p $PORT",
+  "start": "ng serve",
   "build": "npx ng build --configuration production",
   "watch": "npx ng build --watch --configuration development",
   "test": "npx ng test"
