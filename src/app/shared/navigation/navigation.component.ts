@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
   { label: 'Portfolio', link: '/portfolio' },
   { label: 'Contact', link: '/contact' },
   { label: 'Testimonial', link: '/testimonial' },
-  { label: 'Pricing', link: '/pricing' }
+  // { label: 'Pricing', link: '/pricing' }
 ];
 
   ngOnInit() {}
