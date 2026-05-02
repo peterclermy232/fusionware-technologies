@@ -76,9 +76,9 @@ export class InteractivePricingCalculatorComponent implements OnInit {
   ];
 
   timelines = [
-    { id: 'standard', name: 'Standard', duration: '4-6 weeks', multiplier: 1, icon: '🕒' },
-    { id: 'fast', name: 'Fast Track', duration: '2-3 weeks', multiplier: 1.3, icon: '⚡' },
-    { id: 'rush', name: 'Rush Job', duration: '1-2 weeks', multiplier: 1.6, icon: '🚀' }
+    { id: 'standard', name: 'Standard', duration: '4-6 weeks', multiplier: 1, icon: '' },
+    { id: 'fast', name: 'Fast Track', duration: '2-3 weeks', multiplier: 1.3, icon: '' },
+    { id: 'rush', name: 'Rush Job', duration: '1-2 weeks', multiplier: 1.6, icon: '' }
   ];
 
   addOns: AddOn[] = [
