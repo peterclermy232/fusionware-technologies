@@ -1,22 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
-export interface ContactMessage {
-  name: string;
-  email: string;
-  message: string;
+export interface AboutContent {
+  mission: string;
+  vision: string;
+  values: string[];
+  highlights: {
+    title: string;
+    description: string;
+  }[];
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class ContactService {
-  private apiUrl = 'http://localhost:8080/api'; // Backend URL
+export class AboutService {
+  private aboutContent: AboutContent = {
+    mission: 'To empower businesses across Africa and beyond with innovative, scalable software solutions that drive growth and digital transformation.',
+    vision: 'To be the leading software development company that bridges the gap between cutting-edge technology and business success in emerging markets.',
+    values: [
+      'Innovation & Excellence',
+      'Client-Centric Approach',
+      'Integrity & Transparency',
+      'Continuous Learning'
+    ],
+    highlights: [
+      { title: 'Proven Expertise', description: 'Years of experience in delivering successful projects' },
+      { title: 'Dedicated Support', description: '24/7 support and maintenance for all our solutions' },
+      { title: 'Scalable Solutions', description: 'Future-ready applications that grow with your business' }
+    ]
+  };
 
-  constructor(private http: HttpClient) {}
-
-  sendMessage(contactData: ContactMessage): Observable<any> {
-    return this.http.post(`${this.apiUrl}/contact`, contactData);
+  getAboutContent(): Observable<AboutContent> {
+    return of(this.aboutContent);
   }
 }

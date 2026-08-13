@@ -1,59 +1,55 @@
-# FusionwareTechnologies
+# FusionWare Technologies
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+The marketing website for **FusionWare Technologies** — a software studio building web applications, fintech/SACCO systems, and custom business software for companies across Kenya, Uganda, and Tanzania.
+
+Built with Angular 19 (standalone components) and Tailwind CSS.
+
+## What's on the site
+
+The app is a single scrolling landing page (`src/app/app.component.html`) made up of independent, reusable sections:
+
+| Section | Component | Purpose |
+|---|---|---|
+| Hero | `sections/hero` | Value proposition, social proof, primary CTAs |
+| Services | `sections/services` | Web, fintech/SACCO, custom software & support offerings |
+| Portfolio | `sections/portfolio` | Showcase of past projects |
+| About | `sections/about` | Mission, vision, values |
+| Testimonials | `sections/testimonial` | Auto-advancing client testimonial carousel |
+| Pricing Calculator | `sections/interactive-pricing-calculator` | Interactive quote builder that sends the estimate straight to WhatsApp |
+| Contact | `sections/contact` | Reactive contact form + business details |
+
+Navigation (`shared/navigation`) is a fixed header with smooth-scroll anchor links and a scrollspy that highlights the section currently in view. `shared/footer` mirrors the same anchors.
 
 ## Development server
 
-To start a local development server, run:
-
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+Open `http://localhost:4200/` — the app reloads automatically as you edit source files.
 
 ## Building
-
-To build the project run:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Production output is written to `dist/`.
 
 ## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Project conventions
 
-For end-to-end (e2e) testing, run:
+- Components are standalone (no `NgModule`), styled with Tailwind utility classes plus a small amount of component-scoped CSS for bespoke animations (logo, nav, calculator).
+- Section components currently hold their content as static in-component data. The `services/*.service.ts` files sketch out a future API-backed data layer (services, portfolio, about, contact) with mock fallbacks — wire a real backend into them when one exists.
+- Since everything lives on one page, prefer `href="#section-id"` anchors over Angular `routerLink` for in-page navigation; `app.routes.ts` only exists to redirect legacy deep links (e.g. `/about`, `/contact`) back to the corresponding anchor.
 
-```bash
-ng e2e
-```
+## Additional resources
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)

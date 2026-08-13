@@ -1,21 +1,21 @@
 import { Routes } from '@angular/router';
-import { HeroComponent } from './sections/hero/hero.component';
-import { AboutComponent } from './sections/about/about.component';
-import { ServicesComponent } from './sections/services/services.component';
-import { PortfolioComponent } from './sections/portfolio/portfolio.component';
-import { ContactComponent } from './sections/contact/contact.component';
-import { TestimonialComponent } from './sections/testimonial/testimonial.component';
-import { InteractivePricingCalculatorComponent } from './sections/interactive-pricing-calculator/interactive-pricing-calculator.component';
+import { RouteAnchorComponent } from './shared/route-anchor/route-anchor.component';
 
+// The site is a single scrolling landing page (see app.component.html).
+// These routes exist purely to give each section a clean, shareable URL
+// (e.g. /pricing-calculator) and set the document title — every route
+// resolves to RouteAnchorComponent, which renders nothing itself.
+// AppComponent listens for NavigationEnd and smooth-scrolls to the
+// section whose id matches the current path.
 export const routes: Routes = [
-  { path: 'home', component: HeroComponent, title: 'FusionWare Technologies' },
-  { path: 'about', component: AboutComponent, title: 'About — FusionWare' },
-  { path: 'services', component: ServicesComponent, title: 'Services — FusionWare' },
-  { path: 'portfolio', component: PortfolioComponent, title: 'Portfolio — FusionWare' },
-  { path: 'contact', component: ContactComponent, title: 'Contact — FusionWare' },
-  { path: 'testimonial', component: TestimonialComponent },
-  { path: 'pricing', component: InteractivePricingCalculatorComponent },
-
-  // Default redirect
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', pathMatch: 'full', component: RouteAnchorComponent, title: 'FusionWare Technologies — Custom Software, Fintech & Web Solutions' },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  { path: 'services', component: RouteAnchorComponent, title: 'Services — FusionWare Technologies' },
+  { path: 'portfolio', component: RouteAnchorComponent, title: 'Portfolio — FusionWare Technologies' },
+  { path: 'about', component: RouteAnchorComponent, title: 'About — FusionWare Technologies' },
+  { path: 'testimonial', component: RouteAnchorComponent, title: 'Testimonials — FusionWare Technologies' },
+  { path: 'pricing-calculator', component: RouteAnchorComponent, title: 'Pricing Calculator — FusionWare Technologies' },
+  { path: 'pricing', redirectTo: 'pricing-calculator', pathMatch: 'full' },
+  { path: 'contact', component: RouteAnchorComponent, title: 'Contact — FusionWare Technologies' },
+  { path: '**', redirectTo: '' }
 ];

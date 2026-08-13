@@ -9,8 +9,17 @@
       transform: scale(1.05);
     }
 
+    /* Icon + wordmark on one line, vertically centered within the fixed navbar */
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+    }
+
     .logo-svg {
       filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.2));
+      flex-shrink: 0;
     }
 
     .outer-ring {
@@ -49,13 +58,13 @@
 
     .fusion-text {
       color: #3B82F6;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       text-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
     }
 
     .ware-text {
       color: #F59E0B;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       text-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
     }
 
@@ -98,6 +107,11 @@
 
     @media (max-width: 768px) {
       .logo-svg { width: 2.5rem; height: 2.5rem; }
-      .fusion-text, .ware-text { font-size: 1.25rem; }
+      .fusion-text, .ware-text { font-size: 1.1rem; }
       .tagline { font-size: 0.6rem; }
+    }
+
+    @media (max-width: 400px) {
+      .logo-svg { width: 2rem; height: 2rem; }
+      .fusion-text, .ware-text { font-size: 0.9rem; }
     }

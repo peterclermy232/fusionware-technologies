@@ -22,6 +22,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Offset anchored sections so they clear the fixed navbar when jumped to */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

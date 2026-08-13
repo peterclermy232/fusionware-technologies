@@ -15,9 +15,15 @@
 }
 
 /* Service card enhancements */
+/* Note: background is intentionally NOT set here — each card in the template
+   already carries its own Tailwind background class (bg-white, bg-gray-50,
+   or the bg-gradient-to-br "Fintech & SACCO" highlight card). A hardcoded
+   background here would win over those utility classes because Angular's
+   view-encapsulation attribute selector gives this rule higher specificity
+   than a plain Tailwind utility class, silently washing out any card that
+   isn't plain white. */
 .service-card {
   position: relative;
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid rgba(229, 231, 235, 0.6);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
@@ -397,19 +403,6 @@
   .service-icon-container {
     width: 60px;
     height: 60px;
-  }
-}
-
-/* Dark mode support (if implemented) */
-@media (prefers-color-scheme: dark) {
-  .service-card {
-    background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
-    border-color: rgba(75, 85, 99, 0.6);
-  }
-  
-  .service-card:hover {
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   }
 }
 

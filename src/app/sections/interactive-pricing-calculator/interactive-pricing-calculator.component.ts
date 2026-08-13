@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 interface PricingOption {
   id: string;
@@ -18,10 +19,17 @@ interface AddOn {
   category: string;
 }
 
+interface Currency {
+  code: string;
+  label: string;
+  /** Units of this currency per 1 USD. Indicative only — see the disclaimer shown next to the total. */
+  rate: number;
+}
+
 
 @Component({
   selector: 'app-interactive-pricing-calculator',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './interactive-pricing-calculator.component.html',
   styleUrl: './interactive-pricing-calculator.component.css'
 })
@@ -29,6 +37,18 @@ export class InteractivePricingCalculatorComponent implements OnInit {
   selectedOption: PricingOption | null = null;
   selectedTimeline = { id: 'standard', name: 'Standard', duration: '4-6 weeks', multiplier: 1, icon: '🕒' };
   selectedAddOns: string[] = [];
+
+  // All prices below are stored in USD; these are approximate indicative rates
+  // for display only — always shown next to a disclaimer in the template.
+  currencies: Currency[] = [
+    { code: 'USD', label: 'US Dollar (USD)', rate: 1 },
+    { code: 'KES', label: 'Kenyan Shilling (KES)', rate: 129 },
+    { code: 'UGX', label: 'Ugandan Shilling (UGX)', rate: 3700 },
+    { code: 'TZS', label: 'Tanzanian Shilling (TZS)', rate: 2500 },
+    { code: 'EUR', label: 'Euro (EUR)', rate: 0.92 },
+    { code: 'GBP', label: 'British Pound (GBP)', rate: 0.79 }
+  ];
+  selectedCurrency: Currency = this.currencies[0];
 
   pricingOptions: PricingOption[] = [
     {
@@ -115,6 +135,20 @@ export class InteractivePricingCalculatorComponent implements OnInit {
     return this.addOns.find(addon => addon.id === id);
   }
 
+  /** Converts a USD amount into the selected display currency and formats it. */
+  formatPrice(amountUsd: number): string {
+    const converted = amountUsd * this.selectedCurrency.rate;
+    try {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: this.selectedCurrency.code,
+        maximumFractionDigits: 0
+      }).format(converted);
+    } catch {
+      return `${this.selectedCurrency.code} ${Math.round(converted).toLocaleString('en-US')}`;
+    }
+  }
+
   getTotalPrice(): number {
     if (!this.selectedOption) return 0;
 
@@ -128,5 +162,29 @@ export class InteractivePricingCalculatorComponent implements OnInit {
     });
 
     return total;
+  }
+
+  /** Sends the configured estimate straight to WhatsApp so a lead can convert in one tap. */
+  requestQuote() {
+    if (!this.selectedOption) return;
+
+    const addonNames = this.selectedAddOns
+      .map(id => this.getAddonById(id)?.name)
+      .filter((name): name is string => !!name);
+
+    const total = this.getTotalPrice();
+    const localEquivalent = this.selectedCurrency.code !== 'USD'
+      ? ` (approx. ${this.formatPrice(total)})`
+      : '';
+
+    const lines = [
+      `Hi FusionWare! I'd like a quote for the *${this.selectedOption.name}* package.`,
+      `Timeline: ${this.selectedTimeline.name} (${this.selectedTimeline.duration})`,
+      addonNames.length ? `Add-ons: ${addonNames.join(', ')}` : null,
+      `Estimated total: $${total.toLocaleString('en-US')}${localEquivalent}`
+    ].filter(Boolean);
+
+    const message = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/254728985079?text=${message}`, '_blank', 'noopener');
   }
 }

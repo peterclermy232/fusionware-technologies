@@ -7,6 +7,16 @@
           <p class="text-xl text-gray-600 max-w-3xl mx-auto">
             No hidden costs, no surprises. Calculate your project cost instantly and see exactly what you're paying for.
           </p>
+
+          <!-- Currency Selector -->
+          <div class="flex items-center justify-center gap-3 mt-6">
+            <label for="currency-select" class="text-sm font-medium text-gray-600">Show prices in</label>
+            <select id="currency-select"
+                    [(ngModel)]="selectedCurrency"
+                    class="text-sm font-semibold text-gray-800 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency.label}}</option>
+            </select>
+          </div>
         </div>
 
         <div class="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
@@ -30,7 +40,7 @@
                       <h4 class="font-bold text-gray-800 mb-2">{{option.name}}</h4>
                       <p class="text-sm text-gray-600 mb-2">{{option.description}}</p>
                       <div class="text-lg font-bold text-blue-600">
-                        From ${{option.basePrice | number:'1.0-0'}}
+                        From {{formatPrice(option.basePrice)}}
                       </div>
                     </div>
                     <div *ngIf="selectedOption?.id === option.id"
@@ -86,7 +96,7 @@
                       </div>
                     </div>
                     <div class="font-bold text-blue-600">
-                      +${{addon.price | number:'1.0-0'}}
+                      +{{formatPrice(addon.price)}}
                     </div>
                   </div>
                 </div>
@@ -102,31 +112,34 @@
                   <!-- Base Price -->
                   <div class="flex justify-between items-center pb-2 border-b border-blue-400">
                     <span class="text-blue-100">{{selectedOption.name}}</span>
-                    <span class="font-bold">${{selectedOption.basePrice | number:'1.0-0'}}</span>
+                    <span class="font-bold">{{formatPrice(selectedOption.basePrice)}}</span>
                   </div>
 
                   <!-- Timeline Adjustment -->
                   <div *ngIf="selectedTimeline.multiplier !== 1" class="flex justify-between items-center text-sm">
                     <span class="text-blue-200">{{selectedTimeline.name}} {{selectedTimeline.multiplier > 1 ? 'Rush' : 'Standard'}} Fee</span>
                     <span [class]="selectedTimeline.multiplier > 1 ? 'text-red-200' : 'text-green-200'">
-                      {{selectedTimeline.multiplier > 1 ? '+' : ''}}${{(selectedOption.basePrice * (selectedTimeline.multiplier - 1)) | number:'1.0-0'}}
+                      {{selectedTimeline.multiplier > 1 ? '+' : ''}}{{formatPrice(selectedOption.basePrice * (selectedTimeline.multiplier - 1))}}
                     </span>
                   </div>
 
                   <!-- Add-ons -->
                   <div *ngFor="let addonId of selectedAddOns" class="flex justify-between items-center text-sm">
                     <span class="text-blue-200">{{getAddonById(addonId)?.name}}</span>
-                    <span class="text-blue-100">+${{getAddonById(addonId)?.price | number:'1.0-0'}}</span>
+                    <span class="text-blue-100">+{{formatPrice(getAddonById(addonId)?.price || 0)}}</span>
                   </div>
 
                   <!-- Total -->
                   <div class="border-t border-blue-400 pt-4 mt-4">
                     <div class="flex justify-between items-center text-xl font-bold">
                       <span>Total Estimate:</span>
-                      <span class="text-amber-300">${{getTotalPrice() | number:'1.0-0'}}</span>
+                      <span class="text-amber-300">{{formatPrice(getTotalPrice())}}</span>
                     </div>
                     <div class="text-sm text-blue-200 mt-2">
                       Estimated timeline: {{selectedTimeline.duration}}
+                    </div>
+                    <div *ngIf="selectedCurrency.code !== 'USD'" class="text-xs text-blue-300 mt-2">
+                      Base pricing is set in USD; {{selectedCurrency.code}} shown is an approximate conversion. Final invoices are issued in USD unless otherwise agreed.
                     </div>
                   </div>
 
@@ -145,10 +158,11 @@
 
                   <!-- Call to Action -->
                   <div class="space-y-3 mt-6">
-                    <button class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
-                      🚀 Get This Quote Now
+                    <button (click)="requestQuote()"
+                      class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
+                      🚀 Send This Quote on WhatsApp
                     </button>
-                    <a href="/contact"
+                    <a routerLink="/contact"
                       class="w-full block text-center border-2 border-white text-white hover:bg-white hover:text-blue-800 font-semibold py-3 px-6 rounded-xl transition-all duration-300">
                       📞 Schedule Free Consultation
                     </a>
