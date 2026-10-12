@@ -26,7 +26,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     { label: 'Services', path: '/services', elementId: 'services' },
     { label: 'Portfolio', path: '/portfolio', elementId: 'portfolio' },
     { label: 'About', path: '/about', elementId: 'about' },
-    { label: 'Testimonials', path: '/testimonial', elementId: 'testimonial' },
+    { label: 'How We Work', path: '/testimonial', elementId: 'testimonial' },
     { label: 'Pricing', path: '/pricing-calculator', elementId: 'pricing-calculator' },
     { label: 'Contact', path: '/contact', elementId: 'contact' }
   ];

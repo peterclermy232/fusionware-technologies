@@ -23,79 +23,36 @@ interface Testimonial {
 })
 export class TestimonialComponent implements OnInit, OnDestroy {
 
-  testimonials: Testimonial[] = [
+  // Only add testimonials from real clients who have agreed to be quoted,
+  // and only include results you can back up. While this list is empty the
+  // section shows "How We Work" instead of the carousel.
+  testimonials: Testimonial[] = [];
+
+  processSteps = [
     {
-      id: 1,
-      name: "Sarah Wanjiku",
-      company: "Nairobi Fashion House",
-      position: "CEO & Founder",
-      image: "",
-      rating: 5,
-      text: "FusionWare transformed our business completely. Our new e-commerce platform increased online sales by 400% in just 3 months. The team understood our vision perfectly.",
-      project: "E-commerce Platform",
-      result: "400% increase in online sales",
-      location: "Nairobi, Kenya"
+      title: 'Free Consultation',
+      description: 'We learn about your business, the problem you want solved, and what success looks like for you.'
     },
     {
-      id: 2,
-      name: "James Ochieng",
-      company: "Kisumu Teachers SACCO",
-      position: "General Manager",
-      image: "",
-      rating: 5,
-      text: "The SACCO management system they built for us has revolutionized our operations. Member satisfaction is at an all-time high, and we've reduced processing time by 80%.",
-      project: "SACCO Management System",
-      result: "80% faster loan processing",
-      location: "Kisumu, Kenya"
+      title: 'Fixed-Price Proposal',
+      description: 'You get a clear scope, timeline and price in writing before any work starts. No surprises later.'
     },
     {
-      id: 3,
-      name: "Grace Nakimuli",
-      company: "Kampala Fresh Produce",
-      position: "Operations Director",
-      image: "",
-      rating: 5,
-      text: "Their inventory management system saved us from bankruptcy. We can now track everything in real-time and have reduced waste by 60%. Amazing team to work with!",
-      project: "Inventory Management System",
-      result: "60% reduction in waste",
-      location: "Kampala, Uganda"
+      title: 'Build & Review',
+      description: 'We build in short cycles and show you working software regularly, so you can give feedback early.'
     },
     {
-      id: 4,
-      name: "Dr. Michael Mwangi",
-      company: "Mwangi Medical Center",
-      position: "Medical Director",
-      image: "",
-      rating: 5,
-      text: "The patient management system is incredible. We've improved patient care quality and reduced waiting times by 70%. Our staff loves how easy it is to use.",
-      project: "Patient Management System",
-      result: "70% reduced waiting times",
-      location: "Mombasa, Kenya"
-    },
-    {
-      id: 5,
-      name: "Ruth Mwende",
-      company: "Machakos Agribusiness",
-      position: "Managing Partner",
-      image: "",
-      rating: 5,
-      text: "FusionWare built us a comprehensive business management platform that handles everything from procurement to sales. Our efficiency has increased by 250%.",
-      project: "Business Management Platform",
-      result: "250% efficiency increase",
-      location: "Machakos, Kenya"
-    },
-    {
-      id: 6,
-      name: "Anthony Kiprotich",
-      company: "Eldoret Transport Solutions",
-      position: "Fleet Manager",
-      image: "",
-      rating: 5,
-      text: "The fleet management system they developed helps us track all our vehicles in real-time. We've reduced fuel costs by 40% and improved delivery times significantly.",
-      project: "Fleet Management System",
-      result: "40% fuel cost reduction",
-      location: "Eldoret, Kenya"
+      title: 'Launch & Support',
+      description: 'We deploy, train your team, hand over the source code, and stay on hand for updates and fixes.'
     }
+  ];
+
+  commitments = [
+    'Written scope and fixed price before we start',
+    'Regular demos of working software',
+    'You own the source code and data',
+    'Mobile money (M-Pesa, Airtel Money) integration experience',
+    'Local team you can call or WhatsApp directly'
   ];
 
   testimonialSlides: Testimonial[][] = [];
@@ -105,7 +62,9 @@ export class TestimonialComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createSlides();
-    this.startAutoSlide();
+    if (this.testimonialSlides.length > 1) {
+      this.startAutoSlide();
+    }
   }
 
   ngOnDestroy() {
@@ -159,6 +118,8 @@ export class TestimonialComponent implements OnInit, OnDestroy {
   }
 
   onMouseLeave() {
-    this.startAutoSlide();
+    if (this.testimonialSlides.length > 1) {
+      this.startAutoSlide();
+    }
   }
 }

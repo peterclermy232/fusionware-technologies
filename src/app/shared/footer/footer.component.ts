@@ -17,7 +17,7 @@ export class FooterComponent implements OnInit {
     { label: 'Services', path: '/services' },
     { label: 'Portfolio', path: '/portfolio' },
     { label: 'About', path: '/about' },
-    { label: 'Testimonials', path: '/testimonial' },
+    { label: 'How We Work', path: '/testimonial' },
     { label: 'Pricing', path: '/pricing-calculator' },
     { label: 'Contact', path: '/contact' }
   ];
@@ -27,6 +27,8 @@ export class FooterComponent implements OnInit {
     'Web Development',
     'Backend Systems',
     'Fintech Solutions',
+    'Agri-Insurance Platforms',
+    'AI & Automation',
     'Custom Software',
     'Mobile Applications'
   ];

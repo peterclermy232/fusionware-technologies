@@ -43,9 +43,9 @@ export class HeroService {
       }
     ],
     stats: [
-      { value: '50+', label: 'Projects Completed' },
-      { value: '100%', label: 'Client Satisfaction' },
-      { value: '24/7', label: 'Support Available' }
+      { value: 'Fixed-Price', label: 'Quotes Upfront' },
+      { value: 'M-Pesa Ready', label: 'Mobile Money Built In' },
+      { value: 'You Own It', label: 'Full Source Code' }
     ]
   };
 

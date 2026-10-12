@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'services', component: RouteAnchorComponent, title: 'Services — FusionWare Technologies' },
   { path: 'portfolio', component: RouteAnchorComponent, title: 'Portfolio — FusionWare Technologies' },
   { path: 'about', component: RouteAnchorComponent, title: 'About — FusionWare Technologies' },
-  { path: 'testimonial', component: RouteAnchorComponent, title: 'Testimonials — FusionWare Technologies' },
+  { path: 'testimonial', component: RouteAnchorComponent, title: 'How We Work — FusionWare Technologies' },
   { path: 'pricing-calculator', component: RouteAnchorComponent, title: 'Pricing Calculator — FusionWare Technologies' },
   { path: 'pricing', redirectTo: 'pricing-calculator', pathMatch: 'full' },
   { path: 'contact', component: RouteAnchorComponent, title: 'Contact — FusionWare Technologies' },
